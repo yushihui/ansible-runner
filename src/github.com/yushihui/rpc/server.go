@@ -1,12 +1,12 @@
-package main
+package rpc
 
 import (
 	"log"
-	"net"
+	"time"
 	pb "github.com/yushihui/ansible-pb"
+	"net"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	"time"
 )
 
 const (
@@ -28,7 +28,7 @@ func (s *server) StartAutoMationJob(in *pb.AnsibleJob, jobServer pb.AnsibleExecu
 	return nil
 }
 
-func main() {
+func start(){
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)

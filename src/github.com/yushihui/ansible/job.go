@@ -3,7 +3,7 @@ package ansible // import "github.com/yushihui/job"
 import "time"
 
 type Job struct {
-	ID         string `db:"id" json:"id"`
+	Id         string `db:"id" json:"id"`
 	Status string `db:"status" json:"status"`
 	Debug  bool   `db:"debug" json:"debug"`
 	DryRun bool `db:"dry_run" json:"dry_run"`
