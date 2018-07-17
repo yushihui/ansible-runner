@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.netbrain.rpc.ansible";
+option java_outer_classname = "AnsibleProto";
+option go_package = "github.com/yushihui/ansible-pb";
+
+package com.netbrain.rpc.ansible;
+import "google/protobuf/timestamp.proto";
+
+// go compile: protoc --proto_path=src  --go_out=plugins=grpc:bin src/proto/ansible.proto
+// C# compile
+
+service AnsibleService {
+    rpc StartAnsibleJob (AnsibleJob) returns (stream AnsibleJobResponse){}
+}
+
+
+message AnsibleJob {
+    string id = 1;
+    string name = 2;
+    string playbook = 3;
+    bytes playbookCotent = 4;
+    bytes inventoryContent = 5;
+    JobPriority jobPriority = 6;
+}
+
+enum JobStatus {
+    Pending = 0;
+    Running = 1;
+    Success = 2;
+    Failed = 3;
+}
+
+enum JobPriority {
+    Low = 0;
+    Normal = 1;
+    High = 2;
+    Higher = 3;
+    Super = 4;
+}
+
+message AnsibleJobResponse {
+    string message = 1;
+    JobStatus status = 2;
+    google.protobuf.Timestamp startTime = 3;
+    google.protobuf.Timestamp endTime = 4;
+    bytes exeLog = 5;
+
+}
